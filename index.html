@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HymañStack Technologies | Software and technology</title>
+<meta name="description" content="HymañStack Technologies designs and builds web apps, mobile apps, and the systems behind them.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23101B3D'/%3E%3Crect x='7' y='7' width='18' height='4' rx='1' fill='%232F54EB'/%3E%3Crect x='7' y='14' width='18' height='4' rx='1' fill='%23fff'/%3E%3Crect x='7' y='21' width='18' height='4' rx='1' fill='%23FFC93C'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F3F5F9;
+    --surface:#FFFFFF;
+    --navy:#101B3D;
+    --cobalt:#2F54EB;
+    --sun:#FFC93C;
+    --slate:#566078;
+    --line:#D5DAE6;
+    --head:'Bricolage Grotesque','Trebuchet MS',system-ui,sans-serif;
+    --body:'Instrument Sans',system-ui,-apple-system,'Segoe UI',sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:var(--body);font-size:1.0625rem;line-height:1.6;color:var(--navy);background:var(--paper);-webkit-font-smoothing:antialiased}
+  a{color:inherit}
+  :focus-visible{outline:3px solid var(--cobalt);outline-offset:3px;border-radius:4px}
+  .wrap{width:min(1120px,100% - 40px);margin-inline:auto}
+
+  /* Nav */
+  .nav{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:22px 0}
+  .brand{display:flex;align-items:center;gap:10px;text-decoration:none;font-family:var(--head);font-weight:700;font-size:1.2rem;letter-spacing:-.01em}
+  .brand small{font-family:var(--body);font-weight:500;font-size:.8rem;color:var(--slate);margin-left:2px}
+  .nav ul{display:flex;align-items:center;gap:28px;list-style:none}
+  .nav ul a{text-decoration:none;font-weight:500;font-size:.95rem}
+  .nav ul a:hover{text-decoration:underline;text-decoration-color:var(--sun);text-decoration-thickness:3px;text-underline-offset:6px}
+
+  /* Buttons */
+  .btn{display:inline-block;font:600 1rem var(--body);text-decoration:none;padding:13px 22px;border-radius:10px;border:2px solid var(--cobalt);background:var(--cobalt);color:#fff;cursor:pointer;transition:background .2s,border-color .2s,color .2s}
+  .btn:hover{background:#1F3FC4;border-color:#1F3FC4}
+  .btn.ghost{background:transparent;color:var(--navy);border-color:var(--navy)}
+  .btn.ghost:hover{background:var(--navy);color:#fff}
+  .btn.sun{background:var(--sun);border-color:var(--sun);color:var(--navy)}
+  .btn.sun:hover{background:#FFD866;border-color:#FFD866}
+
+  /* Hero */
+  .hero{display:grid;gap:32px 56px;padding:36px 0 88px;grid-template-columns:1.05fr .95fr;grid-template-areas:"copy stage" "layers stage"}
+  .hero-copy{grid-area:copy;align-self:end}
+  .hero-stage{grid-area:stage}
+  .hero-layers{grid-area:layers;align-self:start}
+  h1{font-family:var(--head);font-weight:700;font-size:clamp(2.5rem,5.4vw,4.3rem);line-height:1.03;letter-spacing:-.025em;max-width:13ch}
+  .lede{margin-top:20px;max-width:46ch;color:var(--slate);font-size:1.15rem}
+
+  /* The stack */
+  .stage{position:relative;height:clamp(320px,44vw,470px);perspective:1400px;display:grid;place-items:center}
+  .stack{position:relative;width:min(300px,58%);aspect-ratio:1;transform-style:preserve-3d;transform:rotateX(58deg) rotateZ(-40deg);margin-top:60px}
+  .slab{position:absolute;inset:0;border-radius:16px;border:2px solid var(--navy);background-color:var(--surface);
+    background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);
+    background-size:25% 25%;
+    transform:translateZ(calc(var(--z) * 1px));
+    transition:transform .5s cubic-bezier(.2,.8,.2,1),background-color .3s;
+    animation:drop .9s cubic-bezier(.2,.8,.2,1) backwards;animation-delay:calc(var(--i) * .16s)}
+  .slab.is-active{background-color:var(--cobalt);background-image:linear-gradient(rgba(255,255,255,.28) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.28) 1px,transparent 1px);transform:translateZ(calc(var(--z) * 1px + 26px))}
+  @keyframes drop{from{opacity:0;transform:translateZ(calc(var(--z) * 1px + 220px))}}
+
+  /* Layer list (services) */
+  .layer{border-top:1px solid var(--line)}
+  .layer:last-child{border-bottom:1px solid var(--line)}
+  .layer h3{font:inherit}
+  .layer-btn{all:unset;box-sizing:border-box;width:100%;display:grid;grid-template-columns:18px 1fr;column-gap:14px;align-items:baseline;padding:16px 0;cursor:pointer}
+  .layer-btn:focus-visible{outline:3px solid var(--cobalt);outline-offset:2px;border-radius:4px}
+  .swatch{width:14px;height:14px;border:2px solid var(--navy);border-radius:3px;background:var(--surface);transform:translateY(2px);transition:background .25s,border-color .25s}
+  .layer.is-open .swatch{background:var(--cobalt);border-color:var(--cobalt)}
+  .layer-name{font-family:var(--head);font-weight:700;font-size:1.25rem;letter-spacing:-.01em}
+  .layer-sum{grid-column:2;color:var(--slate);font-size:.98rem}
+  .layer-panel{display:grid;grid-template-rows:0fr;transition:grid-template-rows .35s ease}
+  .layer.is-open .layer-panel{grid-template-rows:1fr}
+  .layer-panel>div{overflow:hidden}
+  .layer-panel ul{list-style:none;padding:0 0 18px 32px}
+  .layer-panel li{position:relative;padding:3px 0 3px 18px}
+  .layer-panel li::before{content:"";position:absolute;left:0;top:.8em;width:7px;height:2px;background:var(--cobalt)}
+  .hero-cta{margin-top:28px;display:flex;flex-wrap:wrap;gap:12px}
+
+  /* Process */
+  .section{padding:88px 0}
+  h2{font-family:var(--head);font-weight:700;font-size:clamp(1.9rem,3.6vw,2.8rem);line-height:1.1;letter-spacing:-.02em;max-width:18ch}
+  .process{background:var(--surface);border-block:1px solid var(--line)}
+  .steps{margin-top:48px;display:grid;grid-template-columns:repeat(4,1fr);gap:32px;list-style:none;counter-reset:step}
+  .steps li{position:relative;padding-top:38px;counter-increment:step}
+  .steps li::before{content:counter(step);position:absolute;top:0;left:0;width:30px;height:30px;border-radius:50%;background:var(--navy);color:#fff;font:600 .9rem var(--body);display:grid;place-items:center;z-index:1}
+  .steps li::after{content:"";position:absolute;top:14px;left:30px;right:-32px;height:2px;background:var(--line)}
+  .steps li:last-child::after{display:none}
+  .steps h3{font-family:var(--head);font-size:1.2rem;margin-bottom:6px;letter-spacing:-.01em}
+  .steps p{color:var(--slate);font-size:1rem}
+
+  /* About */
+  .about{display:grid;grid-template-columns:1.1fr .9fr;gap:56px;align-items:start}
+  .about .statement{font-family:var(--head);font-weight:600;font-size:clamp(1.5rem,2.8vw,2.1rem);line-height:1.25;letter-spacing:-.015em;max-width:24ch}
+  .commit{list-style:none}
+  .commit li{padding:18px 0;border-top:1px solid var(--line);font-weight:500}
+  .commit li:last-child{border-bottom:1px solid var(--line)}
+
+  /* Contact */
+  .contact{background:var(--navy);color:#fff;padding:88px 0 40px}
+  .contact h2{max-width:14ch}
+  .contact-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:56px;align-items:start}
+  .contact p.lede{color:#B8C0D9}
+  form{display:grid;gap:18px}
+  label{display:grid;gap:6px;font-weight:500;font-size:.95rem}
+  input,textarea{font:400 1rem var(--body);color:var(--navy);background:#fff;border:2px solid transparent;border-radius:10px;padding:12px 14px;width:100%}
+  textarea{min-height:130px;resize:vertical}
+  input:focus-visible,textarea:focus-visible{outline:3px solid var(--sun);outline-offset:2px}
+  .status{min-height:1.5em;color:#B8C0D9;font-size:.95rem}
+  .foot{margin-top:72px;padding-top:24px;border-top:1px solid rgba(255,255,255,.18);display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;color:#B8C0D9;font-size:.9rem}
+
+  /* Responsive */
+  @media (max-width:900px){
+    .hero{grid-template-columns:1fr;grid-template-areas:"copy" "stage" "layers";padding-bottom:64px}
+    .stage{height:clamp(300px,70vw,420px)}
+    .steps{grid-template-columns:1fr 1fr;row-gap:40px}
+    .steps li:nth-child(2)::after{display:none}
+    .about,.contact-grid{grid-template-columns:1fr;gap:36px}
+    .section{padding:64px 0}
+  }
+  @media (max-width:640px){
+    .nav ul li:not(:last-child){display:none}
+    .brand small{display:none}
+    .steps{grid-template-columns:1fr}
+    .steps li::after{display:none}
+  }
+  @media (prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto}
+    *,*::before,*::after{animation:none!important;transition:none!important}
+  }
+</style>
+</head>
+<body>
+
+<header class="wrap nav">
+  <a class="brand" href="#top" aria-label="HymañStack Technologies home">
+    <svg width="30" height="30" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="7" fill="#101B3D"/><rect x="7" y="7" width="18" height="4" rx="1" fill="#2F54EB"/><rect x="7" y="14" width="18" height="4" rx="1" fill="#fff"/><rect x="7" y="21" width="18" height="4" rx="1" fill="#FFC93C"/></svg>
+    <span>HymañStack <small>Technologies</small></span>
+  </a>
+  <nav aria-label="Main">
+    <ul>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#process">How we work</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a class="btn" href="#contact" style="padding:9px 16px;font-size:.95rem">Contact us</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main id="top">
+  <section class="wrap hero" id="services">
+    <div class="hero-copy">
+      <h1>Software that holds up at every layer.</h1>
+      <p class="lede">HymañStack Technologies designs and builds web apps, mobile apps, and the systems behind them.</p>
+    </div>
+
+    <div class="hero-stage" aria-hidden="true">
+      <div class="stage">
+        <div class="stack">
+          <div class="slab" data-layer="foundation" style="--z:0;--i:0"></div>
+          <div class="slab" data-layer="data" style="--z:46;--i:1"></div>
+          <div class="slab" data-layer="logic" style="--z:92;--i:2"></div>
+          <div class="slab" data-layer="interface" style="--z:138;--i:3"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-layers">
+      <div class="layer is-open" data-layer="interface">
+        <h3><button class="layer-btn" aria-expanded="true" aria-controls="p-interface"><span class="swatch"></span><span class="layer-name">Interface</span><span class="layer-sum">What your customers see and touch</span></button></h3>
+        <div class="layer-panel" id="p-interface"><div><ul>
+          <li>Websites and web apps</li>
+          <li>Android and iOS apps</li>
+          <li>UI and UX design</li>
+        </ul></div></div>
+      </div>
+      <div class="layer" data-layer="logic">
+        <h3><button class="layer-btn" aria-expanded="false" aria-controls="p-logic"><span class="swatch"></span><span class="layer-name">Logic</span><span class="layer-sum">The rules that run your business</span></button></h3>
+        <div class="layer-panel" id="p-logic"><div><ul>
+          <li>Custom business software</li>
+          <li>APIs and system integrations</li>
+          <li>Payment and workflow automation</li>
+        </ul></div></div>
+      </div>
+      <div class="layer" data-layer="data">
+        <h3><button class="layer-btn" aria-expanded="false" aria-controls="p-data"><span class="swatch"></span><span class="layer-name">Data</span><span class="layer-sum">Records turned into decisions</span></button></h3>
+        <div class="layer-panel" id="p-data"><div><ul>
+          <li>Database design and migration</li>
+          <li>Reporting dashboards</li>
+          <li>Analytics setup</li>
+        </ul></div></div>
+      </div>
+      <div class="layer" data-layer="foundation">
+        <h3><button class="layer-btn" aria-expanded="false" aria-controls="p-foundation"><span class="swatch"></span><span class="layer-name">Foundation</span><span class="layer-sum">What keeps everything running</span></button></h3>
+        <div class="layer-panel" id="p-foundation"><div><ul>
+          <li>Cloud hosting and setup</li>
+          <li>Monitoring and security reviews</li>
+          <li>Maintenance and support</li>
+        </ul></div></div>
+      </div>
+      <div class="hero-cta">
+        <a class="btn" href="#contact">Start a project</a>
+        <a class="btn ghost" href="#process">See how we work</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section process" id="process">
+    <div class="wrap">
+      <h2>From first call to launch, in four steps.</h2>
+      <ol class="steps">
+        <li><h3>Talk</h3><p>We learn what you need, who will use it, and what success looks like.</p></li>
+        <li><h3>Plan</h3><p>You get a clear scope, timeline, and price before any work starts.</p></li>
+        <li><h3>Build</h3><p>We share working versions along the way so you can react early.</p></li>
+        <li><h3>Launch and support</h3><p>We go live with you, then stay on for fixes and improvements.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="section" id="about">
+    <div class="wrap about">
+      <p class="statement">We are a software and technology company. We build tools businesses use every day, and we stay to keep them working.</p>
+      <ul class="commit">
+        <li>Clear scope and price before we start</li>
+        <li>Working builds you can try as we go</li>
+        <li>Support after launch, not just before</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="contact" id="contact">
+    <div class="wrap">
+      <div class="contact-grid">
+        <div>
+          <h2>Tell us what you want to build.</h2>
+          <p class="lede" style="margin-top:18px">Send a short description. We will reply with questions or a next step.</p>
+        </div>
+        <form id="contact-form" novalidate>
+          <label>Your name
+            <input type="text" name="name" autocomplete="name" required>
+          </label>
+          <label>Email
+            <input type="email" name="email" autocomplete="email" required>
+          </label>
+          <label>What do you need built?
+            <textarea name="message" required></textarea>
+          </label>
+          <div>
+            <button class="btn sun" type="submit">Send message</button>
+          </div>
+          <p class="status" id="status" role="status" aria-live="polite"></p>
+        </form>
+      </div>
+      <div class="foot">
+        <span>&copy; <span id="year"></span> HymañStack Technologies</span>
+        <a href="#top">Back to top</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<script>
+  // EDIT THIS: the email address that receives contact form messages
+  const CONTACT_EMAIL = "hello@example.com";
+
+  document.getElementById("year").textContent = new Date().getFullYear();
+
+  // Services: selecting a layer opens its list and lifts the matching slab
+  const layers = document.querySelectorAll(".layer");
+  const slabs = document.querySelectorAll(".slab");
+
+  function selectLayer(name){
+    layers.forEach(l => {
+      const open = l.dataset.layer === name;
+      l.classList.toggle("is-open", open);
+      l.querySelector(".layer-btn").setAttribute("aria-expanded", open);
+    });
+    slabs.forEach(s => s.classList.toggle("is-active", s.dataset.layer === name));
+  }
+  layers.forEach(l => l.querySelector(".layer-btn").addEventListener("click", () => selectLayer(l.dataset.layer)));
+  selectLayer("interface");
+
+  // Contact form: opens the visitor's email app with the message filled in
+  const form = document.getElementById("contact-form");
+  const status = document.getElementById("status");
+  form.addEventListener("submit", e => {
+    e.preventDefault();
+    if (!form.checkValidity()){
+      status.textContent = "Fill in your name, a valid email, and a short description.";
+      form.reportValidity();
+      return;
+    }
+    const d = new FormData(form);
+    const subject = "New project enquiry from " + d.get("name");
+    const body = d.get("message") + "\n\nName: " + d.get("name") + "\nEmail: " + d.get("email");
+    window.location.href = "mailto:" + CONTACT_EMAIL + "?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body);
+    status.textContent = "Opening your email app. If nothing happens, write to " + CONTACT_EMAIL + ".";
+  });
+</script>
+</body>
+</html>
